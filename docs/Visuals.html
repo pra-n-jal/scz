@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C4A Signature Scientific Methodology</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght%40300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            color: #003f5c;
+        }
+        .card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 45vh;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 280px;
+            }
+        }
+        .diagram-box {
+            border: 2px solid #003f5c;
+            background-color: #c1d3da;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-align: center;
+            font-size: 0.9rem;
+            line-height: 1.2;
+        }
+        .diagram-arrow-v {
+            margin: 0.5rem 0;
+            height: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ff6361;
+            font-size: 1.5rem;
+            font-weight: 900;
+        }
+        .diagram-arrow-v::after {
+            content: "↓";
+        }
+        .diagram-arrow-h {
+            width: 1rem;
+            height: 2px;
+            background-color: #ff6361;
+            margin: 0 0.5rem;
+            align-self: center;
+        }
+        /* Table styling for aesthetics and responsiveness */
+        .drug-table th, .drug-table td {
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+            font-size: 0.875rem; /* sm text size */
+        }
+        .drug-table th {
+            background-color: #003f5c;
+            color: white;
+            font-weight: 700;
+        }
+        .drug-table tbody tr:nth-child(even) {
+            background-color: #f0f4f8;
+        }
+        .drug-table tbody tr:hover {
+            background-color: #d3e0e7;
+        }
+        /* Custom styles for the conceptual impact diagram */
+        .impact-connector {
+            position: relative;
+            height: 3rem;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        .impact-line {
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background-color: #ff6361;
+        }
+        .impact-fork {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        .impact-fork::before, .impact-fork::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 50%;
+            height: 2px;
+            background-color: #ff6361;
+        }
+        .impact-fork::before {
+            left: 0;
+            transform: translateY(-50%);
+        }
+        .impact-fork::after {
+            right: 0;
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+<body class="bg-[#f0f4f8] p-4 md:p-8">
+    
+    <header class="text-center mb-12 border-b-4 border-[#ff6361] pb-6">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-[#003f5c] mb-2">AI-Driven Reversal of the C4A Transcriptomic Axis Reveals Novel Therapeutic Drug Candidates for Schizophrenia
+        </h1>
+        <p class="text-xl text-[#4d6e81] max-w-4xl mx-auto">Visualizing the AI-Driven Drug Discovery Strategy for the C4A Signature</p>
+    </header>
+
+    <!-- SECTION 1: Biological Context & Signature Definition -->
+    <h2 class="text-4xl font-black text-[#ff6361] text-center mb-8">SECTION 1: Biological Context & Signature Definition</h2>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+        
+        <!-- COLUMN 1: Background Science & Mechanism -->
+        <section class="lg:col-span-1">
+            <h3 class="text-3xl font-bold text-[#003f5c] mb-6 border-b border-[#c1d3da] pb-2">C4A and Synaptic Pruning</h3>
+            
+            <div class="card mb-8">
+                <h4 class="text-xl font-semibold text-[#003f5c] mb-4">Genetic Risk Contribution </h4>
+                <p class="text-sm text-[#4d6e81] mb-4">The strongest genetic association for Schizophrenia (SCZ) lies within the Major Histocompatibility Complex (MHC) region, heavily influenced by the C4 gene.</p>
+                <div class="chart-container h-64">
+                    <canvas id="riskDonutChart"></canvas>
+                </div>
+                <p class="text-sm italic text-center text-[#4d6e81] mt-4">Proportion of established SCZ genetic risk attributed to the C4 locus.</p>
+            </div>
+
+            <div class="card">
+                <h4 class="text-xl font-semibold text-[#003f5c] mb-4">Proposed Molecular Cascade</h4>
+                <div class="grid grid-cols-1 gap-2">
+                    <div class="diagram-box bg-[#ff6361] text-white">Increased C4A Gene Copy Number</div>
+                    <div class="diagram-arrow-v"></div>
+                    <div class="diagram-box">Overexpression of C4A Protein</div>
+                    <div class="diagram-arrow-v"></div>
+                    <div class="diagram-box">Excessive Complement Cascade Activation</div>
+                    <div class="diagram-arrow-v"></div>
+                    <div class="diagram-box bg-[#003f5c] text-white">Pathological Synaptic Pruning in Adolescence</div>
+                    <div class="diagram-arrow-v"></div>
+                    <div class="diagram-box text-[#003f5c]">Schizophrenia Phenotype</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COLUMN 2: Signature Definition and Dataset Consistency -->
+        <section class="lg:col-span-1">
+            <h3 class="text-3xl font-bold text-[#003f5c] mb-6 border-b border-[#c1d3da] pb-2">C4A Signature Derivation</h3>
+            
+            <div class="card mb-8">
+                <h4 class="text-xl font-semibold text-[#003f5c] mb-4">Core Complement Signature: Combined Z-scores</h4>
+                <p class="text-sm text-[#4d6e81] mb-4">The final expression signature is derived by combining data from multiple GEO datasets into a single Z-score, showing which complement genes are most consistently dysregulated.</p>
+                <div class="chart-container h-80">
+                    <canvas id="geneZScoreChart"></canvas>
+                </div>
+                <p class="text-sm italic text-center text-[#4d6e81] mt-4">Positive Z-scores (e.g., CR1, C7) indicate consistent upregulation, forming the core of the disease signature.</p>
+            </div>
+
+            <div class="card">
+                <h4 class="text-xl font-semibold text-[#003f5c] mb-4">Dataset Consistency: Log Fold Change (LogFC)</h4>
+                <p class="text-sm text-[#4d6e81] mb-4">Raw LogFC values for top upregulated genes show variability between individual GEO sources, underscoring the need for a combined statistical approach.</p>
+                <div class="chart-container h-64">
+                    <canvas id="logFCConsistencyChart"></canvas>
+                </div>
+                <p class="text-xs italic text-center text-[#4d6e81] mt-4">LogFC values for CR1, C7, C5, and CFH across the three source datasets used in the analysis.</p>
+            </div>
+        </section>
+        
+        <!-- COLUMN 3: Connectivity Principle -->
+        <section class="lg:col-span-1">
+            <h3 class="text-3xl font-bold text-[#003f5c] mb-6 border-b border-[#c1d3da] pb-2">Connectivity Principle</h3>
+
+            <div class="card mb-8">
+                <h4 class="text-xl font-semibold text-[#003f5c] mb-4">Reversal Score Calculation</h4>
+                <p class="text-sm text-[#4d6e81] mb-4">The principle involves matching the C4A Disease Signature against thousands of Drug Perturbation Signatures in the LINCS L1000 database. A strong negative correlation (negative Tau score) indicates a reversal effect.</p>
+                <div class="chart-container h-64">
+                    <canvas id="connectivityChart"></canvas>
+                </div>
+                <p class="text-xs italic text-center text-[#4d6e81] mt-4">Conceptual visualization of gene expression changes: Disease (Red) vs. Predicted Reversal Drug (Blue).</p>
+            </div>
+
+            <div class="card">
+                <h4 class="text-xl font-semibold text-[#003f5c] mb-4">LINCS L1000 Query</h4>
+                <p class="text-sm text-[#4d6e81] leading-relaxed">
+                    The <strong>LINCS L1000</strong> database provides transcriptomic signatures for small molecule perturbations (~20,000 compounds). We use this data to train our classification model, which learns to associate structural features with the potential for signature reversal (a negative <strong>Tau score</strong>).
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- --- -->
+    <hr class="border-4 border-[#c1d3da] my-12" />
+    <!-- --- -->
+
+
+    <!-- SECTION 2: AI-Driven Pipeline & ML Refinement (UPDATED LAYOUT) -->
+    <h2 class="text-4xl font-black text-[#ff6361] text-center mb-8">SECTION 2: AI-DRIVEN DISCOVERY FRAMEWORK</h2>
+
+    <section id="pipeline-refinement" class="mb-16">
+        <h3 class="text-3xl font-bold text-[#003f5c] mb-6 border-b border-[#c1d3da] pb-2">The Structure-Based Machine Learning Drug Discovery Pipeline</h3>
+        
+        <div class="card mb-8 p-6 md:p-8">
+            <h4 class="text-2xl font-semibold text-[#003f5c] mb-4">Methodology Narrative</h4>
+            <div class="text-[#4d6e81] text-base leading-relaxed space-y-4">
+                <p>We designed a <strong>novel AI-driven drug discovery framework</strong> to identify compounds capable of reversing the C4A-associated transcriptional signature implicated in schizophrenia. The pipeline integrates multi-cohort transcriptomic analysis with a <strong>structure-based machine learning model</strong> that predicts molecular reversal potential directly from chemical structure.</p>
+                <p>First, a robust C4A gene signature was derived by integrating four independent schizophrenia transcriptomic datasets (<strong>GSE21138, GSE53987, GSE38484, GSE38485</strong>) spanning both brain and peripheral tissues. Data were standardized using <strong>RMA/quantile normalization</strong> and <strong>covariate correction</strong>, followed by cross-cohort correlation analysis to identify genes consistently co-varying with C4A (<strong>FDR &lt; 0.05</strong>). The final upregulated and downregulated gene sets captured the core synaptic–immune dysregulation associated with <strong>C4A overexpression</strong>.</p>
+                <p>Next, we constructed a <strong>classification-based predictive model</strong> that learns the molecular determinants of signature reversal. The model was trained on compounds with known transcriptomic responses, labeled according to their connectivity with the C4A signature (<strong>reversing vs. non-reversing</strong>). Chemical structures were represented as <strong>graphs derived from SMILES strings</strong>, allowing the model to infer structural patterns predictive of transcriptomic reversal without requiring explicit molecular descriptors.</p>
+                <p>Once trained, the model was applied to a <strong>broad chemical library</strong> to predict novel compounds with high likelihood of reversing the C4A signature. These predictions were systematically annotated using <strong>PubChem and ChEMBL</strong> to extract pharmacological targets and pathway information. Several top candidates (e.g., <strong>BRD-K26684619, panobinostat, calcitriol</strong>) exhibited mechanistic coherence with C4A-linked immune and synaptic pathways, supporting the model’s biological validity.</p>
+                <p>This framework represents a <strong>new computational paradigm</strong> for drug discovery — an end-to-end, <strong>ML-driven system</strong> that infers therapeutic potential directly from molecular structure and disease-specific transcriptomic context, without relying on traditional docking or empirical screening.</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
+            
+            <!-- Col 1: Pipeline Architecture -->
+            <div class="card">
+                <h4 class="text-xl font-semibold text-[#003f5c] mb-4">Proprietary AI Drug Discovery Pipeline Architecture</h4>
+                <p class="text-sm text-[#4d6e81] mb-6">Visual breakdown of the multi-stage process from gene signature derivation to novel compound classification.</p>
+                
+                <div class="space-y-4">
+                    <div class="diagram-box bg-[#003f5c] text-white">STAGE I: <strong>C4A SIGNATURE DERIVATION</strong></div>
+                    <div class="diagram-arrow-v"></div>
+                    
+                    <div class="grid grid-cols-3 items-center">
+                        <div class="col-span-3 lg:col-span-1 diagram-box text-[#003f5c] bg-[#c1d3da] h-full flex items-center justify-center">Transcriptomic Cohorts (4x)</div>
+                        <div class="col-span-3 lg:col-span-1 diagram-arrow-h hidden lg:flex"></div>
+                        <div class="col-span-3 lg:col-span-1 diagram-box text-[#003f5c] bg-[#c1d3da] h-full flex items-center justify-center mt-2 lg:mt-0">Gene-C4A Correlation (FDR &lt; 0.05)</div>
+                    </div>
+                    <p class="text-center text-sm font-bold text-[#ff6361]">Stable C4A-Associated Gene Set</p>
+                    <div class="diagram-arrow-v"></div>
+                    
+                    <div class="diagram-box bg-[#ff6361] text-white">STAGE II: <strong>STRUCTURE-BASED CLASSIFICATION</strong> (Custom ML Model)</div>
+                    <div class="diagram-arrow-v"></div>
+                    
+                    <div class="diagram-box text-[#003f5c] bg-[#c1d3da]">Model Trained on LINCS Connectivity (SMILES Input)</div>
+                    
+                    <div class="diagram-arrow-v"></div>
+                    <div class="diagram-box bg-[#003f5c] text-white">STAGE III: <strong>PREDICTION & VALIDATION</strong> (Novel Compound Library Screen)</div>
+                </div>
+            </div>
+
+            <!-- Col 2: New Conceptual Impact Diagram (Fix applied here) -->
+            <div class="card">
+                <h4 class="text-xl font-semibold text-[#003f5c] mb-4">Dual Impact: Repurposing, Discovery, and Mechanistic Insight</h4>
+                
+                <div class="space-y-4 pt-4">
+                    <div class="diagram-box bg-[#003f5c] text-white text-base">OUTPUT: ML PREDICTIVE CANDIDATES</div>
+                    
+                    <!-- CORRECTED: Replaced the flawed horizontal line connector with a simple vertical arrow -->
+                    <div class="diagram-arrow-v"></div> 
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-2">
+                            <div class="diagram-box bg-[#ff6361] text-white text-base">PATH 1: <strong>DRUG REPURPOSING</strong></div>
+                            <div class="diagram-arrow-v"></div>
+                            <div class="diagram-box">Known, CNS-Active Agents (e.g., Panobinostat, Calcitriol)</div>
+                            <div class="text-xs text-center text-[#4d6e81] mt-2 italic">Fast-tracked for Clinical Testing</div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="diagram-box bg-[#ff6361] text-white text-base">PATH 2: <strong>NOVEL DISCOVERY</strong></div>
+                            <div class="diagram-arrow-v"></div>
+                            <div class="diagram-box">New Scaffolds / Unmapped Compounds (e.g., BRD-K26684619)</div>
+                            <div class="text-xs text-center text-[#4d6e81] mt-2 italic">New Targets and Pre-clinical Leads</div>
+                        </div>
+                    </div>
+
+                    <div class="diagram-arrow-v"></div>
+                    <div class="diagram-box bg-[#003f5c] text-white text-base">LONG-TERM IMPACT: <strong>MECHANISTIC INSIGHTS</strong></div>
+                    <div class="diagram-arrow-v"></div>
+                    <div class="diagram-box text-[#003f5c] bg-[#c1d3da] text-sm">
+                        Validation of the C4A pathway as a shared biological baseline for heterogeneous neuropsychiatric diseases.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Col 3: Data Summaries (Table + Scatter Plot Stacked) -->
+            <div class="space-y-8">
+                <!-- Card 1: Table -->
+                <div class="card">
+                    <h4 class="text-xl font-semibold text-[#003f5c] mb-4">Top Candidate Drug Scores</h4>
+                    <p class="text-sm text-[#4d6e81] mb-6">Predicted scores for key compounds identified in the final classification stage. Scores are normalized to 0–1 scale.</p>
+
+                    <div class="overflow-x-auto rounded-lg border border-[#c1d3da]">
+                        <table class="min-w-full drug-table divide-y divide-[#c1d3da]">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="rounded-tl-lg">Compound</th>
+                                    <th scope="col" class="text-center">Structural Predictive Score (X)</th>
+                                    <th scope="col" class="rounded-tr-lg text-center">Reversal Likelihood (Y)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-[#e2e8f0] text-[#003f5c] font-medium">
+                                <tr>
+                                    <td>Panobinostat</td>
+                                    <td class="text-center text-[#003f5c] font-bold">0.85</td>
+                                    <td class="text-center text-[#ff6361] font-bold">0.32</td>
+                                </tr>
+                                <tr>
+                                    <td>BRD-K26684619</td>
+                                    <td class="text-center">0.95</td>
+                                    <td class="text-center">0.28</td>
+                                </tr>
+                                <tr>
+                                    <td>Calcitriol</td>
+                                    <td class="text-center">0.75</td>
+                                    <td class="text-center">0.19</td>
+                                </tr>
+                                <tr>
+                                    <td>Vorinostat</td>
+                                    <td class="text-center">0.70</td>
+                                    <td class="text-center">0.12</td>
+                                </tr>
+                                <tr>
+                                    <td>Estrone</td>
+                                    <td class="text-center">0.55</td>
+                                    <td class="text-center">0.08</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-sm italic text-center text-[#4d6e81] mt-4">Compounds with high scores on both axes (top right of the scatter plot) are prioritized for follow-up.</p>
+                </div>
+                
+                <!-- Card 2: Scatter Plot -->
+                <div class="card">
+                    <h4 class="text-xl font-semibold text-[#003f5c] mb-4">ML Classification: Predicted Reversal Likelihood</h4>
+                    <p class="text-sm text-[#4d6e81] mb-4">Compounds are classified by the <strong>ML network</strong> based on structural properties, identifying candidates with the highest predicted reversal likelihood.</p>
+                    <div class="chart-container h-[40vh]">
+                        <canvas id="chempropScatterPlot"></canvas>
+                    </div>
+                    <p class="text-sm italic text-center text-[#4d6e81] mt-4">The top-right quadrant represents compounds with high predicted reversal likelihood and strong structural quality, indicating high confidence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-center mt-12 mb-4">
+        <p class="text-lg font-medium text-[#4d6e81]">This machine learning–driven discovery pipeline establishes a <strong>scalable in silico approach</strong> for identifying novel therapeutic candidates.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const wrapLabel = (label) => {
+                const maxLength = 16;
+                if (typeof label !== 'string' || label.length <= maxLength) {
+                    return label;
+                }
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+                for (const word of words) {
+                    if ((currentLine + ' ' + word).length > maxLength && currentLine.length > 0) {
+                        lines.push(currentLine);
+                        currentLine = word;
+                    } else {
+                        currentLine = currentLine ? currentLine + ' ' + word : word;
+                    }
+                }
+                if (currentLine) {
+                    lines.push(currentLine);
+                }
+                return lines;
+            };
+
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels ? item.chart.data.labels[item.dataIndex] : item.dataset.label;
+                // For scatter plot, title should be the name of the compound
+                if (item.dataset.label === 'Prioritized Candidates' || item.dataset.label === 'Filtered Compounds') {
+                    return item.raw.name;
+                }
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                } else {
+                    return label;
+                }
+            };
+            
+            const chartDefaultOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#003f5c' }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: '#4d6e81' },
+                        grid: { display: false }
+                    },
+                    y: {
+                        ticks: { color: '#4d6e81' },
+                        grid: { color: '#e2e8f0' }
+                    }
+                }
+            };
+
+            // 1. Genetic Risk Donut Chart
+            const riskDonutData = {
+                labels: ['C4A/MHC Risk', 'Other SCZ Genetic Loci'].map(wrapLabel),
+                datasets: [{
+                    data: [35, 65],
+                    backgroundColor: ['#ff6361', '#c1d3da'],
+                    hoverBackgroundColor: ['#ff8786', '#d3e0e7'],
+                    borderWidth: 0
+                }]
+            };
+
+            const riskDonutChartCtx = document.getElementById('riskDonutChart').getContext('2d');
+            new Chart(riskDonutChartCtx, {
+                type: 'doughnut',
+                data: riskDonutData,
+                options: {
+                    ...chartDefaultOptions,
+                    plugins: {
+                        ...chartDefaultOptions.plugins,
+                        legend: { position: 'bottom' }
+                    },
+                    cutout: '70%',
+                    layout: {
+                        padding: {
+                            bottom: 20
+                        }
+                    }
+                }
+            });
+
+            // 2. Core Complement Signature: Combined Z-scores Bar Chart
+            const geneZScoreData = {
+                labels: ['CR1', 'C7', 'C5', 'CFH', 'C1QB', 'CFB', 'C4A', 'C1QC', 'C4B', 'C3'].map(wrapLabel),
+                datasets: [{
+                    label: 'Combined Z-score',
+                    data: [2.74, 1.44, 1.35, 0.84, 0.45, 0.31, 0.08, -0.03, -0.14, -0.99],
+                    backgroundColor: (ctx) => ctx.raw > 0 ? '#003f5c' : '#4d6e81',
+                    borderRadius: 4
+                }]
+            };
+
+            const geneZScoreChartCtx = document.getElementById('geneZScoreChart').getContext('2d');
+            new Chart(geneZScoreChartCtx, {
+                type: 'bar',
+                data: geneZScoreData,
+                options: {
+                    ...chartDefaultOptions,
+                    indexAxis: 'y',
+                    plugins: {
+                        ...chartDefaultOptions.plugins,
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            ...chartDefaultOptions.scales.x,
+                            title: {
+                                display: true,
+                                text: 'Combined Z-score (Upregulation vs. Downregulation)',
+                                color: '#4d6e81'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 3. Dataset Consistency: Grouped Bar Chart (LogFC)
+            const logFCConsistencyData = {
+                labels: ['CR1', 'C7', 'C5', 'CFH'].map(wrapLabel),
+                datasets: [
+                    {
+                        label: 'GSE38484',
+                        data: [0.092, 0.024, 0.037, 0.031],
+                        backgroundColor: '#003f5c',
+                        stack: 'dataset'
+                    },
+                    {
+                        label: 'GSE38485',
+                        data: [0.121, 0.014, 0.049, 0.029],
+                        backgroundColor: '#ff6361',
+                        stack: 'dataset'
+                    },
+                    {
+                        label: 'GSE21138',
+                        data: [-0.001, 0.337, 0.124, 0.000], /* 0.000 used for N/A */
+                        backgroundColor: '#c1d3da',
+                        stack: 'dataset'
+                    }
+                ]
+            };
+
+            const logFCConsistencyChartCtx = document.getElementById('logFCConsistencyChart').getContext('2d');
+            new Chart(logFCConsistencyChartCtx, {
+                type: 'bar',
+                data: logFCConsistencyData,
+                options: {
+                    ...chartDefaultOptions,
+                    plugins: {
+                        ...chartDefaultOptions.plugins,
+                        legend: { position: 'top' }
+                    },
+                    scales: {
+                        x: {
+                            ...chartDefaultOptions.scales.x,
+                            stacked: false,
+                            grid: { display: true, color: '#e2e8f0' }
+                        },
+                        y: {
+                            ...chartDefaultOptions.scales.y,
+                            stacked: false,
+                            title: {
+                                display: true,
+                                text: 'Log Fold Change (LogFC)',
+                                color: '#4d6e81'
+                            }
+                        }
+                    }
+                }
+            });
+
+
+            // 4. Connectivity Principle Line Chart (Conceptual)
+            const connectivityData = {
+                labels: ['Gene A', 'Gene B', 'Gene C', 'Gene D', 'Gene E', 'Gene F'].map(wrapLabel),
+                datasets: [
+                    {
+                        label: 'C4A Disease Signature (Upregulation)',
+                        data: [2.5, -0.5, 1.8, -1.2, 0.9, 2.1],
+                        borderColor: '#ff6361',
+                        backgroundColor: 'rgba(255, 99, 97, 0.1)',
+                        fill: false,
+                        tension: 0.2
+                    },
+                    {
+                        label: 'Predicted Drug Reversal Signature',
+                        data: [-2.2, 0.4, -1.9, 1.0, -0.8, -1.9],
+                        borderColor: '#003f5c',
+                        backgroundColor: 'rgba(0, 63, 92, 0.1)',
+                        fill: false,
+                        tension: 0.2
+                    }
+                ]
+            };
+
+            const connectivityChartCtx = document.getElementById('connectivityChart').getContext('2d');
+            new Chart(connectivityChartCtx, {
+                type: 'line',
+                data: connectivityData,
+                options: {
+                    ...chartDefaultOptions,
+                    plugins: {
+                        ...chartDefaultOptions.plugins,
+                        legend: { position: 'top' }
+                    },
+                    scales: {
+                        x: {
+                            ...chartDefaultOptions.scales.x,
+                            title: {
+                                display: true,
+                                text: 'Target Genes in Signature',
+                                color: '#4d6e81'
+                            }
+                        },
+                        y: {
+                            ...chartDefaultOptions.scales.y,
+                            min: -3,
+                            max: 3,
+                            title: {
+                                display: true,
+                                text: 'Expression Change (Z-score)',
+                                color: '#4d6e81'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 5. ML Classification Scatter Plot
+            const chempropData = {
+                datasets: [
+                    {
+                        label: 'Prioritized Candidates',
+                        data: [
+                            { x: 0.85, y: 0.32, name: 'Panobinostat' },
+                            { x: 0.95, y: 0.28, name: 'BRD-K26684619' },
+                            { x: 0.75, y: 0.19, name: 'Calcitriol' },
+                            { x: 0.70, y: 0.12, name: 'Vorinostat' },
+                        ],
+                        backgroundColor: '#003f5c',
+                        pointRadius: 10,
+                        pointHoverRadius: 14
+                    },
+                    {
+                        label: 'Filtered Compounds',
+                        data: [
+                            { x: 0.15, y: 0.25, name: 'Non-CNS Compound B' }, 
+                            { x: 0.90, y: 0.02, name: 'Low Scoring Drug A' }, 
+                            { x: 0.55, y: 0.08, name: 'Estrone' },
+                            { x: 0.30, y: 0.18, name: 'Non-CNS Compound C' }
+                        ],
+                        backgroundColor: '#ff6361',
+                        pointRadius: 8,
+                        pointHoverRadius: 12
+                    }
+                ]
+            };
+
+            const chempropScatterPlotCtx = document.getElementById('chempropScatterPlot').getContext('2d');
+            new Chart(chempropScatterPlotCtx, {
+                type: 'scatter',
+                data: chempropData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            labels: { color: '#003f5c' }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: (tooltipItems) => {
+                                    const point = tooltipItems[0].raw;
+                                    return point.name;
+                                },
+                                label: function(context) {
+                                    const point = context.raw;
+                                    return [`Predicted Reversal Score: ${point.y.toFixed(2)}`, `Structural Predictive Score: ${point.x.toFixed(2)}`];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                           ...chartDefaultOptions.scales.x,
+                           min: 0.0,
+                           max: 1.0,
+                            title: {
+                                display: true,
+                                text: 'Structural Predictive Score (High is Better)',
+                                color: '#003f5c',
+                                font: { size: 14 }
+                            },
+                            grid: {
+                                color: (context) => context.tick.value === 0.6 ? '#ff6361' : '#e2e8f0',
+                                lineWidth: (context) => context.tick.value === 0.6 ? 2 : 1,
+                                borderDash: [5, 5]
+                            }
+                        },
+                        y: {
+                            ...chartDefaultOptions.scales.y,
+                            min: 0.0,
+                            max: 0.4,
+                            title: {
+                                display: true,
+                                text: 'Predicted Reversal Likelihood',
+                                color: '#003f5c',
+                                font: { size: 14 }
+                            },
+                            grid: {
+                                color: (context) => context.tick.value === 0.15 ? '#ff6361' : '#e2e8f0',
+                                lineWidth: (context) => context.tick.value === 0.15 ? 2 : 1,
+                                borderDash: [5, 5]
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

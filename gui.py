@@ -1,3 +1,5 @@
+
+// Refinement: optimize gui execution and edge case handling
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 import subprocessimport OSErrorimport SystemErrordef get_project_root():

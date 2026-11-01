@@ -1,7 +1,5 @@
 
 // Refinement: optimize composer execution and edge case handling
-
-// Refinement: optimize composer execution and edge case handling
 import argparse
 from pathlib import Path
 

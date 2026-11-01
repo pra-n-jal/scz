@@ -20,9 +20,9 @@ def canonical_inchikey(smiles):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--pred', default='chemprop_C4A_predictions.csv')
-    parser.add_argument('--pert-info', default='GSE92742_Broad_LINCS_pert_info.txt')
-    parser.add_argument('--out', default='Reversal/predictions_mapped_lincs.tsv')
+    parser.add_argument('--pred', default='results/chemprop_C4A_predictions.csv')
+    parser.add_argument('--pert-info', default='data/raw/GSE92742_Broad_LINCS_pert_info.txt')
+    parser.add_argument('--out', default='results/predictions_mapped_lincs.tsv')
     args = parser.parse_args()
 
     pred = pd.read_csv(args.pred)

@@ -452,6 +452,7 @@ def main(args):
         df.loc[mask_missing2, smiles_col] = df.loc[mask_missing2, 'fetched_smiles_pubchem']
 
     outpath = Path(args.output) if args.output else Path("C4A_training_dataset_filled.tsv")
+    outpath.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(outpath, sep='\t', index=False)
     logging.info(f"Wrote updated dataset to {outpath} ({len(df)} rows)")
 

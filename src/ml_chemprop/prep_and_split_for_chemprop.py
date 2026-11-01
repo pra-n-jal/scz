@@ -66,6 +66,7 @@ def split_save(df, out_prefix, upsample=False, random_state=42):
             )
             print(f'Upsampled positives: {len(pos)} -> {len(pos_up)}')
 
+    Path(out_prefix).parent.mkdir(parents=True, exist_ok=True)
     train_df.to_csv(out_prefix + '_train.csv', index=False)
     val_df.to_csv(out_prefix + '_val.csv', index=False)
     test_df.to_csv(out_prefix + '_test.csv', index=False)

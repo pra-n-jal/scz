@@ -211,7 +211,20 @@ def main(args):
         except Exception:
             col_meta_df = pd.DataFrame(index=lincs_wide.columns)
     if lincs_wide is None:
-        raise ValueError("Couldn't read LINCS data. Provide --lincs (wide or long) or --gctx.")
+        default_gctx = Path("data/raw/GSE92742_Broad_LINCS_Level5_COMPZ.MODZ_n473647x12328.gctx")
+        if default_gctx.exists():
+            print(f"[INFO] Using detected GCTX at {default_gctx}")
+            args.gctx = str(default_gctx)
+            # Re-attempt reading GCTX
+            gct = parse(args.gctx, convert_neg_666=True, make_multiindex=False)
+            data_df = gct.data_df
+            row_meta = getattr(gct, 'row_metadata_df', None)
+            lincs_wide = data_df.copy()
+        else:
+            print("[ERROR] LINCS expression matrix not found.")
+            print("        Please provide --gctx <path_to_gctx> or --lincs <path_to_tsv>.")
+            print("        (LINCS Level 5 matrix can be downloaded from GEO GSE92742)")
+            return
     lincs_wide.index = lincs_wide.index.astype(str).str.upper().str.strip()
     method, matched_positions, matched_genes = detect_gene_rows(sig['gene_symbol'].tolist(), gct.row_metadata_df if 'gct' in locals() else None, lincs_wide.index)
     if method is None or len(matched_positions) == 0:
@@ -256,20 +269,23 @@ def main(args):
         resdf['pert_id'] = ''
         resdf['pert_iname'] = ''
     out_sid = Path(args.out_sid)
-    resdf.to_csv(out_sid, sep='\t', index=True)
     out_sid.parent.mkdir(parents=True, exist_ok=True)
+    resdf.to_csv(out_sid, sep='\t', index=True)
     print('[INFO] Wrote per-signature results to', out_sid)
+
+    out_main = Path(args.out)
+    out_main.parent.mkdir(parents=True, exist_ok=True)
     if resdf['pert_id'].astype(bool).any():
         agg = resdf.groupby('pert_id').agg(n_signatures=('reversal_score', 'count'), reversal_median=('reversal_score', 'median'), reversal_mean=('reversal_score', 'mean'), spearman_median=('spearman', 'median'), spearman_mean=('spearman', 'mean')).reset_index()
-        agg.to_csv(args.out, sep='\t', index=False)
-        print('[INFO] Wrote aggregated per-pert results to', args.out)
+        agg.to_csv(out_main, sep='\t', index=False)
+        print('[INFO] Wrote aggregated per-pert results to', out_main)
     elif resdf['pert_iname'].astype(bool).any():
         agg = resdf.groupby('pert_iname').agg(n_signatures=('reversal_score', 'count'), reversal_median=('reversal_score', 'median'), reversal_mean=('reversal_score', 'mean'), spearman_median=('spearman', 'median'), spearman_mean=('spearman', 'mean')).reset_index().rename(columns={'pert_iname': 'pert_iname'})
-        agg.to_csv(args.out, sep='\t', index=False)
-        print('[INFO] Wrote aggregated per-pert_iname results to', args.out)
+        agg.to_csv(out_main, sep='\t', index=False)
+        print('[INFO] Wrote aggregated per-pert_iname results to', out_main)
     else:
-        resdf.reset_index().to_csv(args.out, sep='\t', index=False)
-        print('[INFO] No pert mapping available; wrote per-signature table to', args.out)
+        resdf.reset_index().to_csv(out_main, sep='\t', index=False)
+        print('[INFO] No pert mapping available; wrote per-signature table to', out_main)
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--gctx', default=None, help='Path to .gctx (level5) file')

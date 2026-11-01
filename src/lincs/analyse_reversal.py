@@ -1,5 +1,5 @@
 
-// Refinement: optimize lincs execution and edge case handling
+# Refinement: optimize lincs execution and edge case handling
 import os
 import sys
 import argparse
@@ -23,13 +23,13 @@ def safe_read(path, **kwargs):
 def parse_args():
     p = argparse.ArgumentParser()
     p.add_argument('--project-root', '-p', default='.')
-    p.add_argument('--reversal-tsv', default='Reversal/C4A_drug_reversals_with_pertid.tsv')
+    p.add_argument('--reversal-tsv', default='results/C4A_drug_reversals_with_significance.tsv')
     p.add_argument('--pert-info', default='GSE92742_Broad_LINCS_pert_info.csv')
     p.add_argument('--expanded', default='Reversal/connectivity_by_pert_expanded.tsv')
     p.add_argument('--col-meta', default='lincs_col_meta_parsed.tsv')
     p.add_argument('--min-signatures', type=int, default=3)
     p.add_argument('--top-k', type=int, default=50)
-    p.add_argument('--outdir', '-o', default='outputs')
+    p.add_argument('--outdir', '-o', default='results')
     return p.parse_args()
 
 def extract_pert_from_sig(sig_val):
@@ -119,7 +119,8 @@ def main():
     if sig_col is not None and need_extract_mask.any():
         print(f'[INFO] Extracting pert_id from {sig_col} for {need_extract_mask.sum()} rows')
         rev.loc[need_extract_mask, 'pert_id'] = rev.loc[need_extract_mask, sig_col].apply(extract_pert_from_sig)
-    corrected_path = os.path.join(root, 'Reversal', 'C4A_drug_reversals_with_pertid.tsv')
+    corrected_path = os.path.join(root, args.outdir, 'C4A_drug_reversals_with_pertid.tsv')
+    os.makedirs(os.path.dirname(corrected_path), exist_ok=True)
     rev.to_csv(corrected_path, sep='\t', index=False)
     print(f'[INFO] Wrote corrected reversal TSV -> {corrected_path}')
     for col in ('reversal_score', 'single_gene_value', 'n_signatures'):

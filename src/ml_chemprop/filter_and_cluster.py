@@ -1,5 +1,5 @@
 
-// Refinement: optimize composer execution and edge case handling
+# Refinement: optimize composer execution and edge case handling
 import argparse
 from pathlib import Path
 
@@ -14,8 +14,8 @@ from rdkit.ML.Cluster import Butina
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--input', default='chemprop_C4A_predictions.csv')
-    parser.add_argument('--out', default='Reversal/predictions_filtered.tsv')
+    parser.add_argument('--input', default='results/chemprop_C4A_predictions.csv')
+    parser.add_argument('--out', default='results/predictions_filtered.tsv')
     parser.add_argument('--cluster-cutoff', type=float, default=0.2)
     args = parser.parse_args()
 

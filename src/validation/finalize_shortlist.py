@@ -62,6 +62,7 @@ def main(args):
     merged = selected.merge(pert_map, how='left', on='inchikey')
     # if no match by inchikey, try matching by name (pert_iname) later manually
     out = Path(args.out)
+    out.parent.mkdir(parents=True, exist_ok=True)
     merged.to_csv(out, sep='\t', index=False)
     print("[INFO] Wrote shortlist to", out)
     print("[INFO] Summary: n_selected=", len(merged))
@@ -71,7 +72,7 @@ if __name__ == '__main__':
     p = argparse.ArgumentParser()
     p.add_argument('--pred', required=True)
     p.add_argument('--pert', required=True)
-    p.add_argument('--out', default='Reversal/final_shortlist.tsv')
+    p.add_argument('--out', default='results/final_shortlist.tsv')
     p.add_argument('--per_cluster', type=int, default=1)
     p.add_argument('--qed', type=float, default=0.35)
     p.add_argument('--mw', type=float, default=550)

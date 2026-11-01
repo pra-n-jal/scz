@@ -1,11 +1,12 @@
 import os
+import sys
 import pandas as pd
 import requests
 import json
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-BASE_DIR = r"C:\Users\pranj\scz_connectivity_multi\Final_results\Manual"
+BASE_DIR = sys.argv[1] if len(sys.argv) > 1 else (os.environ.get("SCZ_BASE_DIR") or "data/raw")
 OUTPUT_FILE = "manual_drug_scores.tsv"
 PVAL_THRESH = 0.05
 TSTAT_THRESH = 2

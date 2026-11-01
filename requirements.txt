@@ -3,6 +3,8 @@ pandas>=1.5.0
 numpy>=1.23.0
 scipy>=1.9.0
 scikit-learn>=1.1.0
+statsmodels>=0.13.0
+matplotlib>=3.6.0
 h5py>=3.7.0
 tqdm>=4.64.0
 requests>=2.28.0
@@ -15,3 +17,7 @@ rdkit>=2022.09.1
 
 # Optional LINCS GCTX Parser
 cmapPy>=1.0.6
+
+# Graph Neural Network modeling (Optional for Stage 3 retraining):
+# chemprop>=1.5.0
+# torch>=1.13.0

@@ -417,7 +417,7 @@ def main():
     parser = argparse.ArgumentParser(description="Safely read GCTX files and extract metadata")
     parser.add_argument("--mode", choices=["explore", "extract", "parse"], default="explore",
                        help="Mode: 'explore' to view file structure, 'extract' to extract metadata, 'parse' to parse signature IDs")
-    parser.add_argument("--gctx", default=r"C:\Users\pranj\Downloads\GSE92742_Broad_LINCS_Level5_COMPZ.MODZ_n473647x12328.gctx\GSE92742_Broad_LINCS_Level5_COMPZ.MODZ_n473647x12328.gctx",
+    parser.add_argument("--gctx", default=None,
                        help="Path to GCTX file")
     parser.add_argument("--out", default="lincs_col_meta.tsv",
                        help="Output TSV file for metadata")

@@ -106,6 +106,7 @@ Calculates non-parametric rank connectivity scores against ~20,000 small-molecul
 ```bash
 python src/lincs/compute_connectivity_lincs.py \
     --sig data/intermediate/C4A_complement_signature.tsv \
+    --gctx data/raw/GSE92742_Broad_LINCS_Level5_COMPZ.MODZ_n473647x12328.gctx \
     --pert_info data/raw/GSE92742_Broad_LINCS_pert_info.txt \
     --out results/connectivity_by_pert.tsv
 ```

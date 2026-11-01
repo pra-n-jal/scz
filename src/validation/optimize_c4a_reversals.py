@@ -309,7 +309,7 @@ def main(args):
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument('--rev', required=True, help='C4A_drug_reversals.tsv path (TSV)')
-    p.add_argument('--pert', required=True, default=r"C:\Users\pranj\scz_connectivity_multi\Final_results\Manual\Training\GSE92742_Broad_LINCS_pert_info.csv", help='pert_info.csv path (CSV)')
+    p.add_argument('--pert', default='data/raw/GSE92742_Broad_LINCS_pert_info.txt', help='pert_info path (TSV or CSV)')
     p.add_argument('--out_prefix', default='C4A_drug_reversals.optimized', help='output prefix')
     # permutation optional
     p.add_argument('--permute', action='store_true', help='enable permutation testing (requires --permute_drugmat and --permute_c4)')

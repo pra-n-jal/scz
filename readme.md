@@ -7,7 +7,7 @@ Crucially, **the unbiased computational method organically re-discovered clinica
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```text
 C4A_Schizophrenia_Repurposing_Project/
@@ -62,7 +62,7 @@ C4A_Schizophrenia_Repurposing_Project/
 
 ---
 
-## ⚡ Quick Start & Installation
+## Quick Start & Installation
 
 ### 1. Environment Setup
 
@@ -85,7 +85,7 @@ conda install -c conda-forge rdkit
 
 ---
 
-## 🔬 Scientific Workflow & Execution Guide
+## Scientific Workflow & Execution Guide
 
 ### Step 1: Build the Consensus C4A Disease Signature
 Derives a robust core signature from five independent GEO patient datasets (post-mortem brain BA46, cortical regions, and whole blood):
@@ -154,7 +154,7 @@ python src/validation/cns_feasibility.py \
 
 ---
 
-## 🏆 Key Findings: Antipsychotics & Psychiatric Benchmark Hits
+## Key Findings: Antipsychotics & Psychiatric Benchmark Hits
 
 The unbiased transcriptomic inversion screen spontaneously recovered established psychiatric drugs, downstream signaling targets, and neuroprotective modulators (persisted in `results/antipsychotics_and_cns_candidates.tsv`):
 
@@ -173,12 +173,12 @@ The unbiased transcriptomic inversion screen spontaneously recovered established
    - **calcitriol** (active Vitamin $D_3$, Reversal Score: `0.1721`): Aligns with developmental vitamin D deficiency risk in schizophrenia.
    - **estrone & estradiol** (Reversal Score: `0.1427` / `0.0744`): Re-discovers the well-documented estrogen neuroprotective effect against psychotic symptoms.
 
-For complete biological rationales, mechanistic diagrams, and statistical formulations, consult:
-📄 **[docs/METHODOLOGY_AND_ANTIPSYCHOTICS_DISCOVERY.md](docs/METHODOLOGY_AND_ANTIPSYCHOTICS_DISCOVERY.md)**
+Consult the full methodology report:
+**[docs/METHODOLOGY_AND_ANTIPSYCHOTICS_DISCOVERY.md](docs/METHODOLOGY_AND_ANTIPSYCHOTICS_DISCOVERY.md)**
 
 ---
 
-## 📖 Citation & References
+## Citation & References
 
 * **Sekar, A., et al. (2016).** *Schizophrenia risk from complex variation of complement component 4.* **Nature**, 530(7589), 177–183.
 * **Subramanian, A., et al. (2017).** *A Next Generation Connectivity Map: L1000 Platform and the First 1,000,000 Profiles.* **Cell**, 171(6), 1437–1452.

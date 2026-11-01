@@ -3,7 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.so
-.Pythonenv/
+.Python
+env/
 build/
 develop-eggs/
 dist/
@@ -19,18 +20,23 @@ wheels/
 share/python-wheels/
 *.egg-info/
 .installed.cfg
-*.eggMANIFEST
+*.egg
+MANIFEST
 
 # Data folders - Do NOT commit massive datasets!
 data/raw/*
 data/intermediate/*
 data/outputs/*
 !data/raw/.gitkeep
-!data/intermediate/.gitkeep!data/outputs/.gitkeep
+!data/intermediate/.gitkeep
+!data/outputs/.gitkeep
+
 # Config / Logs
 config/*.txt
 config/*.yaml
-config/*.Logs!config/.gitkeep
+config/*.log
+!config/.gitkeep
+
 # OS generated files
 .DS_Store
 .DS_Store?
@@ -39,5 +45,6 @@ config/*.Logs!config/.gitkeep
 .Trashes
 ehthumbs.db
 Thumbs.db
+
 # Executables
-*.Executablesdata/
+*.exe

@@ -15,4 +15,3 @@ rdkit>=2022.09.1
 
 # Optional LINCS GCTX Parser
 cmapPy>=1.0.6
-# Optional LINCS GCTX P

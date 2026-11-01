@@ -1,7 +1,5 @@
 
 // Refinement: optimize gui execution and edge case handling
-
-// Refinement: optimize gui execution and edge case handling
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 import subprocess
